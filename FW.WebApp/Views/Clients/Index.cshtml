@@ -1,0 +1,53 @@
+﻿@using FW.CoreBusiness
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<FW.CoreBusiness.Client>
+
+<div class="container">
+    @if (!Model.Any())
+    {
+        <div class="alert alert-danger" role="alert">
+            <strong>Warning!</strong> No Clients Found!
+        </div>
+        <div>
+            <p>
+                <a href="#" class="btn btn-primary">Click Here To Create Your First Client</a>
+            </p>
+        </div>
+    }
+    else
+    {
+        <h2>Clients</h2>
+        <hr />
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Phone</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model)
+                {
+                    <tr>
+                        <td>
+                            @client.FirstName @client.LastName
+                        </td>
+                        <td>
+                            @client.EmailAddress
+                        </td>
+                        <td>
+                            @client.PhoneNumber
+                        </td>
+                        <td>
+                            <a aria-hidden="true" class="btn btn-primary btn-sm" asp-area="" asp-controller="Clients" asp-action="Details" asp-route-id="@client.Id">
+                                Details
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }    
+</div>

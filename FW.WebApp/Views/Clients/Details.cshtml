@@ -1,0 +1,106 @@
+﻿@using UseCase.ViewModels.Client
+@model DetailsViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Client Details</h2>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Client.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Client.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Client.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Client.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Client.EmailAddress)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Client.EmailAddress)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Client.PhoneNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Client.PhoneNumber)
+                </dd>
+                <dt>
+                    Created
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedByEmail) at: @Html.DisplayFor(model => model.Client.Created)
+                </dd>
+                <dt>
+                    Updated
+                </dt>
+                <dd>
+                    @if (Model.Client.Updated == null)
+                    {
+                        <text>Never</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.UpdateByEmail) <text>at:</text> @Html.DisplayFor(model => model.Client.Updated);
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div>
+        <a href="@Url.Action("Index", "Clients")" class="btn btn-primary mb-3">Back to List</a>
+        @if (!Model.Client.Vehicles!.Any())
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Warning!</strong> No Vehicles Found!
+            </div>
+        }
+        else
+        {
+            <h5>Client Vehicles</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>VIN</td>
+                        <td>Color</td>
+                        <td>Year</td>
+                        <td>Make</td>
+                        <td>Model</td>
+                        <td>SubModel</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vehicle in Model.Client.Vehicles!)
+                    {
+                        <tr>
+                            <td>
+                                @vehicle.Vin
+                            </td>
+                            <td>
+                                @vehicle.AppColor.Name
+                            </td>
+                            <td>
+                                @vehicle.Year
+                            </td>
+                            <td>
+                                @vehicle.Make
+                            </td>
+                            <td>
+                                @vehicle.Model
+                            </td>
+                            <td>
+                                @vehicle.SubModel
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
